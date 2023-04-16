@@ -1,0 +1,73 @@
+﻿schema {
+  query: Query
+}
+
+type Query {
+  entriesByReading(reading: String!): [JmdictEntry]!
+}
+
+type JmdictEntry {
+  sequence: Int!
+  kanji: [JmdictKanji!]
+  readings: [JmdictReading!]
+  senseElements: [JmdictSense!]
+}
+
+type JmdictKanji {
+  expression: String
+  information: [String!]
+  priorities: [String!]
+}
+
+type JmdictReading {
+  kana: String
+  noKanji: String
+  restrictions: [String!]
+  information: [String!]
+  priorities: [String!]
+}
+
+type JmdictSense {
+  restrictedKanji: [String!]
+  restrictedReadings: [String!]
+  references: [String!]
+  antonyms: [String!]
+  partsOfSpeech: [String!]
+  fields: [String!]
+  misc: [String!]
+  sourceLanguages: [JmdictSource!]
+  dialects: [String!]
+  information: [String!]
+  glossary: [JmdictGlossary!]
+  examples: [JmdictExample!]
+}
+
+type JmdictExample {
+  exampleSource: JmdictExampleSource
+  text: String
+  sentences: [JmdictExampleSentence!]
+}
+
+type JmdictGlossary {
+  content: String
+  language: String
+  gender: String
+  type: String
+}
+
+type JmdictSource {
+  content: String
+  language: String
+  type: String
+  wasei: String
+}
+
+type JmdictExampleSentence {
+  language: String
+  text: String
+}
+
+type JmdictExampleSource {
+  id: String
+  sourceType: String
+}

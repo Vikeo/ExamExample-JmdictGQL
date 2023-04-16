@@ -1,0 +1,43 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+@if (result?.Data is not null)
+{
+    <div>
+    @foreach (var reading in result.Data.EntriesByReading!)
+    {
+        @if(reading!.Kanji!.Count() > 0)
+        {
+            <div>@reading!.Kanji.FirstOrDefault()!.Expression</div>
+        }
+    }
+    </div>
+}
+
+
+@code {
+
+    [Inject]
+    private IDictClient client { get; set; }
+
+    // This is the that we query for when we load the index page.
+    public string? _searchInput = "ひらがな";
+
+    private IOperationResult<IEntriesByReadingResult> result = null!;
+    protected override async Task OnParametersSetAsync()
+    {
+        // This makes it so that the initial page load doesn't trigger a search, if the _searchInput is empty.
+        if (string.IsNullOrEmpty(_searchInput))
+        {
+            return;
+        }
+
+        await SearchByReading(_searchInput);
+    }
+
+    private async Task SearchByReading(string searchInput)
+    {
+        result = await client.EntriesByReading.ExecuteAsync(searchInput);
+    }
+}
