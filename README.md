@@ -2,7 +2,7 @@
 
 This is a simple example of a .NET 7 ASP.NET Core GraphQL server and Blazor WASM application with a GraphQL client.
 
-## Prerequisites:
+## Prerequisites
 
 - **Visual Studio 2022**
 
