@@ -35,16 +35,18 @@ This is a simple example of a .NET 7 ASP.NET Core GraphQL server and Blazor WASM
 
 ## How to update the schema in the client
 
-- If you make changes to the schema in the server, you will need to update the schema in the client.
+If you make changes to the schema in the server, you will need to update the schema in the client.
 
-  - Go into the server directory and run `dotnet run`. *The server needs to run for the client to be able to download the updated schema.*
-  - Go into the client directory and run `dotnet graphql update`.
+- Open a terminal and navigate to the `Server` directory and run `dotnet run`. *The server needs to run for the client to be able to download the updated schema.*
 
-  If the `schema.graphql` doesn't update, run `dotnet graphql download http://localhost:5051/graphql/` to redownload the entire schema.
+- Open another terminal and navigate to the client directory and run `dotnet graphql update`.
 
-- The client will now have the latest schema, but now we need to update the queries:
+    If the `schema.graphql` file doesn't update, remove it and run `dotnet graphql download http://localhost:5051/graphql/` to redownload the entire schema.
 
-  - Run `dotnet clean`, which has been configured to delete the `obj` folder, followed by `dotnet build`.
+The client will now have the latest schema, **now we need to update the automatically generated query classes**:
+
+- In the client directory run `dotnet clean`, which has been configured to delete the `obj` folder
+- Then run `dotnet build` to generate the needed GraphQL-related files.
 
 TODO:
 
