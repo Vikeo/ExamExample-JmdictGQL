@@ -27,7 +27,7 @@ This is a simple example of a .NET 7 ASP.NET Core GraphQL server and Blazor WASM
 - Press `F5` or press the `Start` button to run the solution.
 - This will open the Client in a browser window and the Banana Cake Pop GraphQL IDE in another browser window.
 
-### Using a terminal, like `cmd` or `powershell`, go into the `Server` directory and run `dotnet run`
+### Using a terminal
 
 - Go into the server directory and run `dotnet run`
 - Go into the client directory and run `dotnet run`
