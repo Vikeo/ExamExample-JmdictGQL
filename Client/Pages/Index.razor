@@ -1,43 +1,51 @@
-﻿@page "/"
+﻿@code {
+
+    [Inject]
+    private IDictClient client { get; set; }
+    
+    // This is the that we query for when we load the index page.
+    public string? _searchInput = "かんじ";
+
+    private IOperationResult<IKanjiExpressionsByReadingResult> result = null!;
+
+    private async Task SearchByReading(string searchInput)
+    {
+        result = await client.KanjiExpressionsByReading.ExecuteAsync(searchInput);
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        // This makes it so that the initial page load doesn't trigger a search, if the _searchInput is empty.
+        if (!String.IsNullOrEmpty(_searchInput))
+        {
+            await SearchByReading(_searchInput);
+        }
+    }
+}
+
+@page "/"
 
 <PageTitle>Index</PageTitle>
+
+<div>Showing results for: @_searchInput</div>
 
 @if (result?.Data is not null)
 {
     <div>
-    @foreach (var reading in result.Data!.EntriesByReading)
+    @foreach (var entry in result.Data!.EntriesByReading)
     {
-        @if(reading!.Kanji!.Count() > 0)
+        @if(entry!.Kanji!.Count() > 0)
         {
-            <div>@reading!.Kanji!.FirstOrDefault()!.Expression</div>
+            <ul>
+                <li>SequenceId: @entry!.Sequence</li>
+                <li>Reading: @entry!.Kanji!.FirstOrDefault()!.Expression</li>
+            </ul>
         }
     }
     </div>
 }
 
 
-@code {
 
-    [Inject]
-    private IDictClient client { get; set; }
 
-    // This is the that we query for when we load the index page.
-    public string? _searchInput = "ひらがな";
-
-    private IOperationResult<IKanjiExpressionsByReadingResult> result = null!;
-    protected override async Task OnParametersSetAsync()
-    {
-        // This makes it so that the initial page load doesn't trigger a search, if the _searchInput is empty.
-        if (string.IsNullOrEmpty(_searchInput))
-        {
-            return;
-        }
-
-        await SearchByReading(_searchInput);
-    }
-
-    private async Task SearchByReading(string searchInput)
-    {
-        result = await client.KanjiExpressionsByReading.ExecuteAsync(searchInput);
-    }
-}

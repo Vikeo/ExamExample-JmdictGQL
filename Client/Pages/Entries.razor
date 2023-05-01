@@ -1,0 +1,56 @@
+﻿@code {
+
+    [Inject]
+    private IDictClient client { get; set; }
+    
+    public string? _searchInput = "かんじ";
+
+    private IOperationResult<IEntriesByReadingResult> result = null!;
+
+    private async Task SearchByReading(string searchInput)
+    {
+        result = await client.EntriesByReading.ExecuteAsync(searchInput);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!String.IsNullOrEmpty(_searchInput))
+        {
+            await SearchByReading(_searchInput);
+        }
+    }
+}
+
+@page "/entries"
+
+<PageTitle>Index</PageTitle>
+
+<div>Showing results for: @_searchInput</div>
+
+@if (result?.Data is not null)
+{
+    <div>
+    @foreach (var entry in result.Data!.EntriesByReading)
+    {
+        @if(entry!.Kanji!.Count() > 0)
+        {
+            <ul>
+                <li>SequenceId: @entry!.Sequence</li>
+                
+                <li>Readings</li>
+                @foreach (var reading in entry?.Readings!)
+                    {
+                        <li>@reading.Kana</li>
+                    }
+
+                <li>Glossary: @string.Join("; ", entry!.SenseElements!.SelectMany(sense => sense.Glossary!.Select(glossary => glossary.Content)))</li>
+
+            </ul>
+        }
+    }
+    </div>
+}
+
+
+
+

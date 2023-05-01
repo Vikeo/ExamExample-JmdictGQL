@@ -13,8 +13,6 @@ builder.Services
 .AddDictClient()
 .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5051/graphql"));
 
-IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
-
-// IDictClient client = serviceProvider.GetRequiredService<IDictClient>();
-
 await builder.Build().RunAsync();
+
+
