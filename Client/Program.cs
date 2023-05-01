@@ -15,6 +15,6 @@ builder.Services
 
 IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
 
-IDictClient client = serviceProvider.GetRequiredService<IDictClient>();
+// IDictClient client = serviceProvider.GetRequiredService<IDictClient>();
 
 await builder.Build().RunAsync();

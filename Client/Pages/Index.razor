@@ -5,7 +5,7 @@
 @if (result?.Data is not null)
 {
     <div>
-    @foreach (var reading in result.Data.EntriesByReading!)
+    @foreach (var reading in result.Data!.EntriesByReading)
     {
         @if(reading!.Kanji!.Count() > 0)
         {
@@ -24,7 +24,7 @@
     // This is the that we query for when we load the index page.
     public string? _searchInput = "ひらがな";
 
-    private IOperationResult<IEntriesByReadingResult> result = null!;
+    private IOperationResult<IKanjiExpressionsByReadingResult> result = null!;
     protected override async Task OnParametersSetAsync()
     {
         // This makes it so that the initial page load doesn't trigger a search, if the _searchInput is empty.
@@ -38,6 +38,6 @@
 
     private async Task SearchByReading(string searchInput)
     {
-        result = await client.EntriesByReading.ExecuteAsync(searchInput);
+        result = await client.KanjiExpressionsByReading.ExecuteAsync(searchInput);
     }
 }

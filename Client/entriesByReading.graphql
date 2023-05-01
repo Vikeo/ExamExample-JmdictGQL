@@ -1,8 +1,50 @@
-query EntriesByReading($reading: String!){ 
-  entriesByReading(reading: $reading)  {
+query EntriesByReading($reading: String!){
+  entriesByReading(reading: $reading) {
     sequence
-    kanji{
+    kanji {
       expression
+      information
+      priorities
+    }
+    readings{
+      kana
+      noKanji
+      restrictions
+      information
+      priorities
+    }
+    senseElements{
+      restrictedKanji
+      glossary{
+        content
+        language
+        gender
+        type
+      }
+      examples{
+        exampleSource {
+          id
+        }
+        text
+        sentences{
+            language
+            text
+        }
+      }
+      restrictedReadings
+      references
+      antonyms
+      partsOfSpeech
+      fields
+      misc
+      sourceLanguages {
+        content
+        language
+        type
+        wasei
+      }
+      dialects
+      information
     }
   }
 }

@@ -1,0 +1,9 @@
+query KanjiExpressionsByReading($reading: String!){
+  entriesByReading(reading: $reading) {
+    sequence
+    kanji
+    {
+      expression
+    }
+  }
+}
