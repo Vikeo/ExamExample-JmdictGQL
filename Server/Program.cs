@@ -31,5 +31,3 @@ app.UseCors("AllowAny");
 app.MapGraphQL();
 
 app.Run();
-
-

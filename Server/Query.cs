@@ -1,5 +1,4 @@
 ﻿using JMDict;
-using WanaKanaShaapu;
 
 namespace JmdictGQL
 {
@@ -14,7 +13,11 @@ namespace JmdictGQL
 
         public IEnumerable<JmdictEntry?> EntriesByReading(string reading)
         {
-            return _jmdict.Entries.Where(e => e.Readings?.FirstOrDefault(r => r.Kana == reading) != null);
+            return _jmdict.Entries
+                .Where(e => e.Readings?
+                .FirstOrDefault(r => r.Kana == reading) != null);
         }
     }
 }
+
+
