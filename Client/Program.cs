@@ -1,4 +1,5 @@
 using Client;
+using Client.GraphQL;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,6 +11,10 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services
 .AddDictClient()
-.ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5051/graphql/"));
+.ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5051/graphql"));
+
+IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+
+IDictClient client = serviceProvider.GetRequiredService<IDictClient>();
 
 await builder.Build().RunAsync();
