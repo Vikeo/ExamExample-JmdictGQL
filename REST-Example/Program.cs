@@ -12,11 +12,10 @@ builder.Services.AddSingleton(jmdict);
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
-
 //http://localhost:5207/reading/カラオケ
 app.MapGet("/reading/{reading}", (string reading) =>
     {
+        //TODO Get entries from the services jmdict instead
         var entry = jmdict.Entries
         .Where(e => e.Readings?
         .FirstOrDefault(r => r.Kana == reading) != null);
