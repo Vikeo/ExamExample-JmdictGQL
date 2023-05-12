@@ -1,3 +1,4 @@
+using System.Net.Http;
 using Client;
 using Client.GraphQL;
 using Microsoft.AspNetCore.Components.Web;
@@ -12,6 +13,11 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services
 .AddDictClient()
 .ConfigureHttpClient(client => client.BaseAddress = new Uri("http://localhost:5051/graphql"));
+
+builder.Services.AddHttpClient("RestApi", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5207");
+});
 
 await builder.Build().RunAsync();
 

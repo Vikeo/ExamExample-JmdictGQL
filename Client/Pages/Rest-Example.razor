@@ -1,0 +1,45 @@
+﻿@page "/rest-example"
+@inject IHttpClientFactory HttpClientFactory
+
+<PageTitle>Index</PageTitle>
+
+<div>Showing results for: @_searchInput</div>
+
+@if (result is not null)
+{
+    <div>
+        <p>Kanji Expression: @result.Kanji[0].Expression</p>
+        <p>Readings:</p>
+        <ul>
+            @foreach (var reading in result.Readings)
+            {
+                <li>@reading.Kana</li>
+            }
+        </ul>
+        <p>Sense Element Part of Speech: @result.SenseElements[0].PartsOfSpeech[0]</p>
+        <p>Glossary Content: @result.SenseElements[0].Glossary[0].Content</p>
+    </div>
+}
+
+<button @onclick="Search">Search</button>
+
+@code {
+    private HttpClient restApiClient;
+    private string _searchInput = "カラオケ";
+    private KaraokeResult result;
+
+    protected override async Task OnInitializedAsync()
+    {
+        restApiClient = HttpClientFactory.CreateClient("RestApi");
+    }
+
+    private async Task Search()
+    {
+        var response = await restApiClient.GetAsync($"reading/{_searchInput}");
+        if (response.IsSuccessStatusCode)
+        {
+            Console.WriteLine("response", response);
+            result = await response.Content.ReadFromJsonAsync<KaraokeResult>();
+        }
+    }
+}
