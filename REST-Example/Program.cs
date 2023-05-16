@@ -23,7 +23,7 @@ builder.Services
 
 var app = builder.Build();
 
-app.UseCors("AllowAny"); // Enable CORS
+app.UseCors("AllowAny");
 
 // http://localhost:5207/reading/カラオケ
 app.MapGet("/reading/{reading}", (string reading, Jmdict jmdict) =>

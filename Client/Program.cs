@@ -1,6 +1,4 @@
-using System.Net.Http;
 using Client;
-using Client.GraphQL;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

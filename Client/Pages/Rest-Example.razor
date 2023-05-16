@@ -1,32 +1,11 @@
 ﻿@page "/rest-example"
 @inject IHttpClientFactory HttpClientFactory
-
-<PageTitle>Index</PageTitle>
-
-<div>Showing results for: @_searchInput</div>
-
-@if (result is not null)
-{
-    <div>
-        <p>Kanji Expression: @result.Kanji[0].Expression</p>
-        <p>Readings:</p>
-        <ul>
-            @foreach (var reading in result.Readings)
-            {
-                <li>@reading.Kana</li>
-            }
-        </ul>
-        <p>Sense Element Part of Speech: @result.SenseElements[0].PartsOfSpeech[0]</p>
-        <p>Glossary Content: @result.SenseElements[0].Glossary[0].Content</p>
-    </div>
-}
-
-<button @onclick="Search">Search</button>
+@using System.Text.Json;
 
 @code {
     private HttpClient restApiClient;
     private string _searchInput = "カラオケ";
-    private KaraokeResult result;
+    private List<RestDictResult>? results;
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,8 +17,34 @@
         var response = await restApiClient.GetAsync($"reading/{_searchInput}");
         if (response.IsSuccessStatusCode)
         {
-            Console.WriteLine("response", response);
-            result = await response.Content.ReadFromJsonAsync<KaraokeResult>();
+            var jsonOptions = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            results = JsonSerializer.Deserialize<List<RestDictResult>>(responseContent, jsonOptions);
         }
     }
 }
+
+
+<PageTitle>Index</PageTitle>
+
+<div>Showing results for: @_searchInput</div>
+
+@if (results is not null)
+{
+        <div>
+        @foreach (var entry in results)
+        {
+            @if (entry!.Kanji!.Count() > 0)
+            {
+                        <ul>
+                            <li>SequenceId: @entry!.Sequence</li>
+                            <li>Reading: @entry!.Kanji!.FirstOrDefault()!.Expression</li>
+                        </ul>
+            }
+        }
+        </div>
+}
+
+<button @onclick="Search">Search</button>
+
