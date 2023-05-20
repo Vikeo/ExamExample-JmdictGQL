@@ -1,0 +1,90 @@
+[
+   {
+      "sequence":1038660,
+      "kanji":[
+         {
+            "expression":"空オケ",
+            "information":[
+               "rarely-used kanji form"
+            ],
+            "priorities":[
+               
+            ]
+         }
+      ],
+      "readings":[
+         {
+            "kana":"からオケ",
+            "noKanji":null,
+            "restrictions":[
+               
+            ],
+            "information":[
+               
+            ],
+            "priorities":[
+               
+            ]
+         },
+         {
+            "kana":"カラオケ",
+            "noKanji":"",
+            "restrictions":[
+               
+            ],
+            "information":[
+               
+            ],
+            "priorities":[
+               "ichi1",
+               "spec1"
+            ]
+         }
+      ],
+      "senseElements":[
+         {
+            "restrictedKanji":[
+               
+            ],
+            "restrictedReadings":[
+               
+            ],
+            "references":[
+               
+            ],
+            "antonyms":[
+               
+            ],
+            "partsOfSpeech":[
+               "noun (common) (futsuumeishi)"
+            ],
+            "fields":[
+               
+            ],
+            "misc":[
+               "word usually written using kana alone"
+            ],
+            "sourceLanguages":[
+               
+            ],
+            "dialects":[
+               
+            ],
+            "information":[
+               "from 空 and オーケストラ"
+            ],
+            "glossary":[
+               {
+                  "content":"karaoke",
+                  "language":null,
+                  "gender":null,
+                  "type":null
+               }
+            ],
+            "examples":[
+               
+            ]
+         }
+      ]
+   }
+]
