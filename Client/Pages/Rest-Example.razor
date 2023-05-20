@@ -28,6 +28,8 @@
 
 <PageTitle>Index</PageTitle>
 
+<button @onclick="Search">Search</button>
+
 <div>Showing results for: @_searchInput</div>
 
 @if (results is not null)
@@ -46,5 +48,4 @@
         </div>
 }
 
-<button @onclick="Search">Search</button>
 

@@ -3,20 +3,20 @@
     [Inject]
     private IDictClient client { get; set; }
     
-    public string? _searchInput = "かんじ";
+    public string? _searchInput = "カラオケ";
 
     private IOperationResult<IEntriesByReadingResult> result = null!;
 
-    private async Task SearchByReading(string searchInput)
+    private async Task SearchByReading()
     {
-        result = await client.EntriesByReading.ExecuteAsync(searchInput);
+        result = await client.EntriesByReading.ExecuteAsync(_searchInput);
     }
 
     protected override async Task OnInitializedAsync()
     {
         if (!String.IsNullOrEmpty(_searchInput))
         {
-            await SearchByReading(_searchInput);
+            await SearchByReading();
         }
     }
 }
@@ -24,6 +24,8 @@
 @page "/entries"
 
 <PageTitle>Index</PageTitle>
+
+<button @onclick="SearchByReading">Search</button>
 
 <div>Showing results for: @_searchInput</div>
 

@@ -4,13 +4,13 @@
     private IDictClient client { get; set; }
     
     // This is the that we query for when we load the index page.
-    public string? _searchInput = "かんじ";
+    public string? _searchInput = "カラオケ";
 
     private IOperationResult<IKanjiExpressionsByReadingResult> result = null!;
 
-    private async Task SearchByReading(string searchInput)
+    private async Task SearchByReading()
     {
-        result = await client.KanjiExpressionsByReading.ExecuteAsync(searchInput);
+        result = await client.KanjiExpressionsByReading.ExecuteAsync(_searchInput);
     }
 
 
@@ -19,7 +19,7 @@
         // This makes it so that the initial page load doesn't trigger a search, if the _searchInput is empty.
         if (!String.IsNullOrEmpty(_searchInput))
         {
-            await SearchByReading(_searchInput);
+            await SearchByReading();
         }
     }
 }
@@ -27,6 +27,8 @@
 @page "/"
 
 <PageTitle>Index</PageTitle>
+
+<button @onclick="SearchByReading">Search</button>
 
 <div>Showing results for: @_searchInput</div>
 
